@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SiteGlow — Make your business shine online",
-  description: "Modern, mobile-friendly website refreshes for local businesses. $399 flat.",
+  title: "SiteGlow — Handyman acquisition flow",
+  description: "Find, qualify, demo, and contact local service businesses with outdated websites.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

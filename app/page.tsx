@@ -1,117 +1,108 @@
-const services = ["Up to 3 existing pages", "Mobile responsive", "One revision round", "Production-ready build"];
+"use client";
 
-const faqs = [
-  ["Is this a full redesign?", "It’s a focused visual refresh. We keep your existing content and basic functionality, then dramatically improve the presentation."],
-  ["What if my site has custom features?", "We’ll check before starting. Stores, logins, custom booking, databases, and complex integrations need a separate quote."],
-  ["Do I pay before seeing anything?", "No. First, you get a limited homepage concept. If you like the direction, the $399 project begins."],
-  ["Who owns the finished website?", "You do. You receive the production-ready source and build, and we can help with a straightforward launch."],
+import { useMemo, useState } from "react";
+
+type Lead = {
+  id:number; name:string; city:string; rating:number; reviews:number; tech:string; siteAge:string;
+  sales:number; delivery:number; effort:string; pages:number; status:string; risk:"Low"|"Medium"|"High";
+  email:string; issue:string; services:string[];
+};
+
+const initialLeads: Lead[] = [
+  {id:1,name:"Northstar Handyman",city:"Seattle, WA",rating:4.9,reviews:186,tech:"Static HTML",siteAge:"Looks like 2011",sales:93,delivery:96,effort:"2–3h",pages:5,status:"Qualified",risk:"Low",email:"mike@northstarhandyman.com",issue:"Tiny text, no mobile layout, buried quote CTA",services:["Repairs","Carpentry","Painting"]},
+  {id:2,name:"Evergreen Home Repair",city:"Bellevue, WA",rating:4.8,reviews:92,tech:"Wix",siteAge:"Looks like 2015",sales:87,delivery:88,effort:"3–4h",pages:7,status:"Qualified",risk:"Low",email:"hello@evergreenrepair.com",issue:"Strong reviews but weak hierarchy and dated imagery",services:["Drywall","Doors","Assembly"]},
+  {id:3,name:"Quick Fix Handyman",city:"Tacoma, WA",rating:4.7,reviews:64,tech:"Squarespace",siteAge:"Looks like 2016",sales:81,delivery:84,effort:"4–5h",pages:9,status:"Review",risk:"Medium",email:"contact@quickfixwa.com",issue:"Mobile works, but services and proof are hard to scan",services:["Maintenance","Decks","Fences"]},
+  {id:4,name:"Rain City Repairs",city:"Seattle, WA",rating:4.9,reviews:241,tech:"WordPress",siteAge:"Looks like 2013",sales:95,delivery:58,effort:"10–14h",pages:24,status:"Rejected",risk:"High",email:"office@raincityrepairs.com",issue:"Plugin-heavy booking flow and 24 indexed pages",services:["Remodeling","Electrical","Plumbing"]},
+  {id:5,name:"Sound Home Services",city:"Renton, WA",rating:4.6,reviews:51,tech:"GoDaddy Builder",siteAge:"Looks like 2014",sales:78,delivery:91,effort:"3–4h",pages:6,status:"Qualified",risk:"Low",email:"dan@soundhomeservices.com",issue:"Good content, poor spacing, generic first impression",services:["Punch lists","Fixtures","Repairs"]},
+  {id:6,name:"ProCraft Handyman",city:"Kirkland, WA",rating:4.8,reviews:113,tech:"WordPress",siteAge:"Looks like 2018",sales:82,delivery:73,effort:"6–8h",pages:12,status:"Review",risk:"Medium",email:"team@procraftnw.com",issue:"Simple brochure content but theme and form need inspection",services:["Carpentry","Tile","Installations"]},
 ];
 
+const stages = ["Discover","Evaluate","Demo","Outreach"];
+
 export default function Home() {
-  return (
-    <main>
-      <header className="nav shell">
-        <a className="brand" href="#top" aria-label="SiteGlow home"><span className="brand-mark">S</span>SiteGlow</a>
-        <nav aria-label="Primary navigation">
-          <a href="#how">How it works</a>
-          <a href="#included">What’s included</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-        <a className="button button-small" href="mailto:hello@siteglow.studio?subject=Free website refresh concept">Get a free concept</a>
+  const [activeStage,setActiveStage] = useState("Evaluate");
+  const [leads,setLeads] = useState(initialLeads);
+  const [selected,setSelected] = useState<Lead>(initialLeads[0]);
+  const [query,setQuery] = useState("");
+  const [filter,setFilter] = useState("All");
+  const [toast,setToast] = useState("");
+  const [mailOpen,setMailOpen] = useState(false);
+
+  const visible = useMemo(()=>leads.filter(l =>
+    (filter === "All" || l.status === filter) &&
+    (l.name.toLowerCase().includes(query.toLowerCase()) || l.city.toLowerCase().includes(query.toLowerCase()))
+  ),[leads,query,filter]);
+
+  function notify(message:string){ setToast(message); window.setTimeout(()=>setToast(""),2400); }
+  function updateStatus(status:string){
+    setLeads(items=>items.map(l=>l.id===selected.id?{...l,status}:l));
+    setSelected({...selected,status}); notify(`${selected.name} moved to ${status}`);
+  }
+
+  return <main className="app-shell">
+    {toast && <div className="toast">✓ {toast}</div>}
+    <aside className="sidebar">
+      <div className="logo"><span>✦</span>SiteGlow</div>
+      <p className="workspace-label">WORKSPACE</p>
+      <nav className="side-nav">
+        <button className="active"><span>⌁</span>Acquisition flow</button>
+        <button><span>▦</span>Lead library <i>{leads.length}</i></button>
+        <button><span>◫</span>Demo studio</button>
+        <button><span>✉</span>Outreach</button>
+        <button><span>↗</span>Analytics</button>
+      </nav>
+      <div className="weekly">
+        <div><span>THIS WEEK</span><b>First $399 customer</b></div>
+        <div className="progress"><i /></div>
+        <p><b>12</b> / 20 leads reviewed</p>
+      </div>
+      <div className="user"><span>CM</span><div><b>Changhong Ma</b><small>Owner workspace</small></div><i>•••</i></div>
+    </aside>
+
+    <section className="workspace">
+      <header className="topbar">
+        <div><p>SITEGLOW / ACQUISITION</p><h1>Handyman lead flow</h1></div>
+        <div className="top-actions"><button className="ghost">↻ Sync search</button><button className="primary" onClick={()=>notify("New Seattle search queued")}>＋ Find businesses</button></div>
       </header>
 
-      <section className="hero shell" id="top">
-        <div className="hero-copy">
-          <div className="eyebrow"><span /> Make your business shine online.</div>
-          <h1>Your business grew up.<br /><em>Your website can too.</em></h1>
-          <p className="lead">We turn dated small-business websites into sharp, mobile-friendly sites for <strong>$399 flat</strong>—without changing what already works.</p>
-          <div className="hero-actions">
-            <a className="button" href="mailto:hello@siteglow.studio?subject=Free website refresh concept">See your site refreshed <span>↗</span></a>
-            <a className="text-link" href="#included">See what $399 includes <span>↓</span></a>
+      <div className="flowbar">
+        {stages.map((stage,index)=><button key={stage} onClick={()=>setActiveStage(stage)} className={activeStage===stage?"active":""}>
+          <span>{index+1}</span><div><b>{stage}</b><small>{["Google Maps candidates","Score fit + difficulty","Generate refresh concept","Review + send email"][index]}</small></div><i>{[24,12,4,2][index]}</i>
+        </button>)}
+      </div>
+
+      <div className="content-grid">
+        <section className="lead-panel">
+          <div className="panel-title"><div><h2>Website evaluation</h2><p>Ranked by opportunity and delivery confidence</p></div><button className="icon-button">⚙</button></div>
+          <div className="filters"><label>⌕<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search leads or city" /></label><div>{["All","Qualified","Review","Rejected"].map(f=><button key={f} className={filter===f?"active":""} onClick={()=>setFilter(f)}>{f}</button>)}</div></div>
+          <div className="table-head"><span>BUSINESS</span><span>SALES</span><span>DELIVERY</span><span>EFFORT</span><span>STATUS</span></div>
+          <div className="lead-list">{visible.map(lead=><button key={lead.id} className={`lead-row ${selected.id===lead.id?"selected":""}`} onClick={()=>setSelected(lead)}>
+            <span className="business"><i>{lead.name.split(" ").map(x=>x[0]).slice(0,2).join("")}</i><div><b>{lead.name}</b><small>★ {lead.rating} ({lead.reviews}) · {lead.city}</small></div></span>
+            <span className={`score ${lead.sales>=85?"good":""}`}>{lead.sales}</span><span className={`score ${lead.delivery>=85?"good":lead.delivery<70?"bad":""}`}>{lead.delivery}</span>
+            <span className="effort">{lead.effort}</span><span className={`status ${lead.status.toLowerCase()}`}>{lead.status}</span>
+          </button>)}</div>
+          <div className="panel-foot"><span>Showing {visible.length} of {leads.length} evaluated leads</span><span><b>3</b> strong demo candidates</span></div>
+        </section>
+
+        <aside className="detail-panel">
+          <div className="detail-top"><span className="company-icon">{selected.name.split(" ").map(x=>x[0]).slice(0,2).join("")}</span><div><small>SELECTED LEAD</small><h3>{selected.name}</h3><a href="#">Open current site ↗</a></div><button>•••</button></div>
+          <div className="decision">
+            <div><span className={`risk ${selected.risk.toLowerCase()}`}>{selected.risk} delivery risk</span><b>{selected.delivery >= 85 ? "Build the demo" : selected.delivery >= 70 ? "Inspect before demo" : "Skip this lead"}</b><p>{selected.delivery >= 85 ? "High visual upside, healthy business, and technically straightforward." : selected.delivery >= 70 ? "Potentially viable, but confirm the CMS and form behavior first." : "The delivery risk breaks the $399 economics."}</p></div>
+            <div className="decision-score"><b>{selected.delivery}</b><small>/ 100</small></div>
           </div>
-          <div className="proof-line">
-            <div><strong>3</strong><span>pages refreshed</span></div>
-            <div><strong>1</strong><span>revision included</span></div>
-            <div><strong>14</strong><span>day bug warranty</span></div>
+          <div className="metrics"><div><small>SALES FIT</small><b>{selected.sales}</b></div><div><small>DELIVERY FIT</small><b>{selected.delivery}</b></div><div><small>EST. EFFORT</small><b>{selected.effort}</b></div></div>
+          <div className="audit"><h4>Why this score</h4>
+            <p><span>Technology</span><b>{selected.tech}</b></p><p><span>Site size</span><b>{selected.pages} pages · flexible scope</b></p><p><span>Visual gap</span><b>{selected.siteAge}</b></p><p><span>Primary issue</span><b>{selected.issue}</b></p>
           </div>
-        </div>
-
-        <div className="transformation" aria-label="Example of a dated website transformed into a modern website">
-          <div className="before site-card">
-            <div className="browser-bar"><i /><i /><i /><span>BEFORE</span></div>
-            <div className="old-logo">JOHNSON &amp; SONS</div>
-            <div className="old-nav">HOME&nbsp;&nbsp; SERVICES&nbsp;&nbsp; ABOUT&nbsp;&nbsp; CONTACT</div>
-            <div className="old-hero"><b>Quality Work Since 1987</b><small>Call us today for all your home repair needs!</small><button>CLICK HERE</button></div>
-            <div className="old-columns"><span /><span /><span /></div>
+          <div className="signals"><h4>Preserve in refresh</h4><div>{selected.services.map(s=><span key={s}>✓ {s}</span>)}<span>✓ Phone + email links</span><span>✓ Existing indexed URLs</span></div></div>
+          <div className="detail-actions">
+            <button className="reject" onClick={()=>updateStatus("Rejected")}>Skip lead</button>
+            <button className="primary wide" disabled={selected.delivery<70} onClick={()=>window.location.href="/demo/aga"}>Open AGA demo →</button>
           </div>
-          <div className="after site-card">
-            <div className="browser-bar"><i /><i /><i /><span>AFTER</span></div>
-            <div className="new-nav"><b>JOHNSON<span>+</span>SONS</b><small>Services&nbsp;&nbsp;&nbsp; Our work&nbsp;&nbsp;&nbsp; About</small></div>
-            <div className="new-hero"><span>TRUSTED SINCE 1987</span><b>Home repairs,<br />done right.</b><small>Dependable craftsmanship for the place that matters most.</small><button>Get a free estimate →</button></div>
-            <div className="new-stats"><span><b>37+</b>Years local</span><span><b>4.9</b>Google rating</span><span><b>800+</b>Jobs completed</span></div>
-          </div>
-          <div className="lift-badge">GLOW UP <span>✦</span></div>
-        </div>
-      </section>
-
-      <section className="trust-strip">
-        <div className="shell"><span>Built for local businesses that deserve better online</span><b>HANDYMEN</b><b>LANDSCAPERS</b><b>PAINTERS</b><b>PLUMBERS</b><b>ROOFERS</b></div>
-      </section>
-
-      <section className="how shell" id="how">
-        <div className="section-heading">
-          <p className="kicker">THE NO-DRAMA REDESIGN</p>
-          <h2>See the lift <em>before</em><br />you spend a dollar.</h2>
-          <p>No long discovery process. No vague estimate. No $5,000 leap of faith.</p>
-        </div>
-        <div className="steps">
-          <article><span>01</span><div className="step-icon">⌁</div><h3>Send your current site</h3><p>We check that your site is a good fit: simple, functional, and ready for a visual upgrade.</p></article>
-          <article><span>02</span><div className="step-icon">✦</div><h3>Get a free concept</h3><p>We create enough of the homepage for you to clearly see the new direction.</p></article>
-          <article><span>03</span><div className="step-icon">↗</div><h3>Love it? We finish it.</h3><p>Pay $399, get up to three refreshed pages, one revision, and launch-ready files.</p></article>
-        </div>
-      </section>
-
-      <section className="included" id="included">
-        <div className="shell included-grid">
-          <div className="price-card">
-            <p>THE COMPLETE REFRESH</p>
-            <div className="price"><sup>$</sup>399</div>
-            <span>one flat price</span>
-            <a className="button light" href="mailto:hello@siteglow.studio?subject=Free website refresh concept">Get your free concept <span>↗</span></a>
-            <small>No payment until you approve the direction.</small>
-          </div>
-          <div className="included-copy">
-            <p className="kicker">WHAT YOU GET</p>
-            <h2>Everything needed to look<br /><em>credible, clear, and current.</em></h2>
-            <div className="feature-grid">
-              {services.map((item) => <div key={item}><i>✓</i>{item}</div>)}
-              <div><i>✓</i>Modern visual design</div><div><i>✓</i>Clear call-to-action hierarchy</div>
-              <div><i>✓</i>Existing content reused</div><div><i>✓</i>Basic accessibility cleanup</div>
-              <div><i>✓</i>Simple launch assistance</div><div><i>✓</i>14-day bug warranty</div>
-            </div>
-            <div className="boundary"><b>Same business. Same content. Same basic functionality.</b><span>This isn’t a rebrand or custom software build. New features get a new quote—so the refresh stays fast and affordable.</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="fit shell">
-        <div><p className="kicker">BUILT FOR THE OVERLOOKED</p><h2>Your work already earns trust.<br /><em>Your website should too.</em></h2></div>
-        <div className="quote"><span>“</span><p>I know my website looks old.<br />I just don’t want a <b>$5,000 redesign.</b></p><small>— Pretty much every great local business owner</small></div>
-      </section>
-
-      <section className="faq shell" id="faq">
-        <div><p className="kicker">STRAIGHT ANSWERS</p><h2>Good questions.<br /><em>Simple answers.</em></h2><p className="faq-note">Still unsure if your site fits? Send it over. A quick “not a fit” costs nothing.</p></div>
-        <div className="faq-list">{faqs.map(([q,a], index) => <details key={q} open={index === 0}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div>
-      </section>
-
-      <section className="final-cta">
-        <div className="shell">
-          <div><p className="kicker">YOUR SITE, ONLY BETTER</p><h2>Ready to see the<br /><em>before → after?</em></h2></div>
-          <div><p>Send us your current website. We’ll tell you if it’s a fit and create a free refresh concept.</p><a className="button light" href="mailto:hello@siteglow.studio?subject=Free website refresh concept">Make my site glow <span>↗</span></a></div>
-        </div>
-      </section>
-
-      <footer className="shell"><a className="brand" href="#top"><span className="brand-mark">S</span>SiteGlow</a><p>Better websites for good local businesses.</p><span>© 2026 SiteGlow Studio</span></footer>
-    </main>
-  );
+          <button className="mail-preview" onClick={()=>setMailOpen(!mailOpen)}>✉ Preview outreach email <span>{mailOpen?"−":"+"}</span></button>
+          {mailOpen && <div className="email-draft"><small>TO: {selected.email}</small><b>Quick idea for {selected.name}</b><p>Hey! I came across {selected.name} and noticed your great {selected.rating}-star reputation. I put together a quick homepage refresh showing how the site could better reflect the quality of your work. Want me to send it over?</p><button onClick={()=>notify("Email saved to review queue")}>Approve draft</button></div>}
+        </aside>
+      </div>
+    </section>
+  </main>;
 }
