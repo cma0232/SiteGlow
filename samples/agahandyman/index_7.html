@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGA Handyman Services</title>
+<meta name="description" content="We are a family owned limited liability business with over 20 years of experience in the service industry. We offer competitive service at a reasonable price for Kirkland, Bellevue, Redmond, Bothell, Woodinville, Sammamish, and Issaquah.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F4EF;
+  --paper-2:#EFEBE3;
+  --ink:#14120E;
+  --ink-2:#3B3931;
+  --muted:#7B786D;
+  --line:#DED9CF;
+  --rust:#C8400C;
+  --rust-2:#A63208;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+h1,h2{margin:0;font-weight:800;letter-spacing:-.04em;line-height:.94}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 30px}
+
+.tag{background:var(--ink);color:#8E8A7E;font-size:11.5px;letter-spacing:.03em;text-align:center;padding:7px 20px}
+.tag b{color:#EDE9E0;font-weight:600}
+
+/* ---- header ---- */
+header{position:sticky;top:0;z-index:50;background:rgba(247,244,239,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:20px}
+.wordmark{font-weight:800;font-size:19.5px;letter-spacing:-.04em;text-decoration:none}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;font-family:inherit;
+  font-weight:600;font-size:16px;text-decoration:none;padding:13px 24px;border-radius:2px;
+  border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:.16s;letter-spacing:-.01em;
+}
+.btn-solid{background:var(--rust);color:#fff}
+.btn-solid:hover{background:var(--rust-2)}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-lg{padding:18px 32px;font-size:17.5px}
+
+/* ---- hero ---- */
+.hero{padding:96px 0 0}
+h1{font-size:clamp(46px,7.4vw,104px);letter-spacing:-.05em}
+h1 em{font-style:normal;color:var(--rust)}
+.hero-b{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:end;margin-top:60px;padding-bottom:58px}
+.hero-b p{font-size:21px;line-height:1.48;color:var(--ink-2);max-width:32ch;letter-spacing:-.015em}
+.acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}
+
+.creds{border-top:1px solid var(--line);display:grid;grid-template-columns:1.25fr 1fr 1fr}
+.cred{padding:38px 40px 38px 0;border-right:1px solid var(--line)}
+.cred:nth-child(2){padding-left:40px}
+.cred:last-child{border-right:0;padding-left:40px;padding-right:0}
+.cred .lab{font-size:16.5px;line-height:1.5;color:var(--ink-2);letter-spacing:-.01em}
+.cred b{font-weight:700;color:var(--rust)}
+.numline{display:flex;align-items:baseline;gap:11px;margin-bottom:10px}
+.numline .sm{font-size:17px;font-weight:600;color:var(--muted);letter-spacing:-.01em}
+.numline .num{
+  font-size:clamp(62px,7.2vw,96px);font-weight:800;color:var(--rust);
+  letter-spacing:-.06em;line-height:.8;
+}
+.cred .big{font-size:clamp(22px,2.3vw,29px);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin-bottom:11px}
+.cred .lab+.big{margin-bottom:0;margin-top:12px}
+
+/* ---- services ---- */
+.services{padding:100px 0}
+.sec-lab{
+  font-size:clamp(24px,3.2vw,38px);font-weight:800;letter-spacing:-.035em;line-height:1.05;
+  padding-bottom:26px;border-bottom:2px solid var(--ink);
+}
+.rows{display:grid;grid-template-columns:1fr 1fr;column-gap:70px}
+.row{display:flex;align-items:baseline;gap:22px;padding:23px 0;border-bottom:1px solid var(--line);transition:.16s}
+.row:hover{padding-left:9px;border-bottom-color:var(--ink)}
+.row .n{font-size:12px;font-weight:600;color:var(--rust);flex:none;width:22px;letter-spacing:.05em}
+.row .t{font-size:clamp(19px,2.05vw,25px);font-weight:600;letter-spacing:-.028em}
+.row.more .t{color:var(--muted);font-weight:500;font-style:italic}
+
+/* ---- statement ---- */
+.statement{background:var(--ink);color:#EDE9E0;padding:110px 0}
+.statement p{
+  font-size:clamp(27px,4.4vw,58px);font-weight:700;line-height:1.16;letter-spacing:-.04em;max-width:19ch;
+}
+.statement b{color:var(--rust);font-weight:700}
+
+/* ---- area ---- */
+.area{padding:104px 0}
+.area .lead{
+  font-size:16px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);line-height:1.4;
+}
+.cities{
+  font-size:clamp(30px,4.55vw,62px);font-weight:800;letter-spacing:-.05em;
+  line-height:1.12;margin-top:26px;
+}
+.cities i{font-style:normal;color:var(--rust)}
+.cities em{font-style:normal;font-weight:500;color:var(--muted);font-size:.4em;letter-spacing:-.02em}
+
+/* ---- contact ---- */
+.contact{padding:0 0 100px}
+.cgrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start;margin-top:52px}
+.dblock{padding:24px 0;border-bottom:1px solid var(--line)}
+.dblock:first-child{padding-top:0}
+.dblock:last-child{border-bottom:0}
+.dblock .k{font-size:15px;color:var(--muted);margin-bottom:9px;letter-spacing:-.01em}
+.dblock .v{font-size:clamp(21px,2.5vw,29px);font-weight:700;letter-spacing:-.035em;text-decoration:none;display:inline-block}
+.dblock .v:hover{color:var(--rust)}
+.dblock .s{font-size:16.5px;line-height:1.55;color:var(--ink-2);letter-spacing:-.01em}
+
+form{border:1px solid var(--ink);padding:36px;background:var(--paper-2)}
+.f{margin-bottom:20px}
+label{display:block;font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+input,textarea{
+  width:100%;font-family:inherit;font-size:16.5px;color:var(--ink);background:transparent;
+  padding:11px 0;border:0;border-bottom:1px solid #CFC9BD;outline:none;transition:.16s;border-radius:0;
+}
+input:focus,textarea:focus{border-bottom-color:var(--rust)}
+textarea{min-height:80px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.privacy{font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:18px}
+.sent{display:none;color:var(--rust);font-size:14.5px;font-weight:600;margin-top:14px}
+
+/* ---- footer ---- */
+footer{border-top:1px solid var(--line);padding:44px 0}
+.foot{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.foot .thanks{font-size:19px;font-weight:700;letter-spacing:-.03em}
+.foot .r{font-size:14.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--rust)}
+
+.callbar{display:none}
+
+@media(max-width:920px){
+  .hero-b{grid-template-columns:1fr;gap:34px;align-items:start}
+  .acts{justify-content:flex-start}
+  .rows{grid-template-columns:1fr;column-gap:0}
+  .creds{grid-template-columns:1fr}
+  .cred{border-right:0;border-bottom:1px solid var(--line);padding:28px 0!important}
+  .cred:last-child{border-bottom:0}
+  .cred .big br{display:none}
+  .cgrid{grid-template-columns:1fr;gap:40px}
+  .nav .btn{display:none}
+}
+@media(max-width:620px){
+  body{font-size:16px;padding-bottom:70px}
+  .wrap{padding:0 20px}
+  .hero{padding-top:52px}
+  .hero-b{margin-top:36px;padding-bottom:38px}
+  .services,.area{padding:66px 0}
+  .statement{padding:76px 0}
+  .contact{padding-bottom:66px}
+  .g2{grid-template-columns:1fr;gap:0}
+  form{padding:26px 22px}
+  .acts .btn{flex:1 1 100%}
+  .callbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;bottom:0;left:0;right:0;z-index:80;border-top:1px solid var(--ink)}
+  .callbar a{text-align:center;padding:18px;font-weight:700;font-size:16px;text-decoration:none}
+  .callbar .a{background:var(--rust);color:#fff}
+  .callbar .b{background:var(--ink);color:var(--paper)}
+}
+</style>
+</head>
+<body>
+
+<div class="tag">Concept redesign by <b>SiteGlow</b> — not affiliated with or endorsed by AGA Handyman Services</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="wordmark" href="#top">AGA Handyman Services</a>
+    <a class="btn btn-solid" href="tel:+14256261277">425-626-1277</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>We provide services ranging from small chores to <em>bathroom remodels.</em></h1>
+
+    <div class="hero-b">
+      <p>We are a family owned limited liability business.</p>
+      <div class="acts">
+        <a class="btn btn-solid btn-lg" href="tel:+14256261277">425-626-1277</a>
+        <a class="btn btn-line btn-lg" href="#contact">service@agahandyman.com</a>
+      </div>
+    </div>
+
+    <div class="creds">
+      <div class="cred">
+        <div class="numline">
+          <span class="sm">with over</span><span class="num">20</span><span class="sm">years</span>
+        </div>
+        <div class="lab">of experience in the service industry.</div>
+      </div>
+      <div class="cred">
+        <div class="lab">Our General Contractor business <b>(AGAHAHS837PT)</b> is</div>
+        <div class="big">licensed, bonded,<br>and insured.</div>
+      </div>
+      <div class="cred">
+        <div class="lab">We work with reliable sub-contractors that are</div>
+        <div class="big">fully insured.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="wrap">
+    <h2 class="sec-lab">Specialty services include</h2>
+    <div class="rows">
+      <div class="row"><span class="n">01</span><span class="t">remodel work</span></div>
+      <div class="row"><span class="n">02</span><span class="t">pressure washing</span></div>
+      <div class="row"><span class="n">03</span><span class="t">fence &amp; deck repair</span></div>
+      <div class="row"><span class="n">04</span><span class="t">drywall repair</span></div>
+      <div class="row"><span class="n">05</span><span class="t">painting</span></div>
+      <div class="row"><span class="n">06</span><span class="t">flooring installation &amp; repair</span></div>
+      <div class="row"><span class="n">07</span><span class="t">gutter cleaning</span></div>
+      <div class="row"><span class="n">08</span><span class="t">furniture assembly</span></div>
+      <div class="row"><span class="n">09</span><span class="t">electrical &amp; plumbing fixture replacements</span></div>
+      <div class="row"><span class="n">10</span><span class="t">appliance installation</span></div>
+      <div class="row"><span class="n">11</span><span class="t">junk hauling</span></div>
+      <div class="row more"><span class="n">12</span><span class="t">and much more</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <div class="wrap">
+    <p>Rest assured your projects are our top priority and will be performed with <b>integrity and professionalism.</b></p>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="area">
+  <div class="wrap">
+    <p class="lead">We offer competitive service at a reasonable price for</p>
+    <p class="cities">Kirkland<i>,</i> Bellevue<i>,</i> Redmond<i>,</i> Bothell<i>,</i> Woodinville<i>,</i> Sammamish<i>,</i> <em>and</em> Issaquah</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 class="sec-lab">Please contact us for more information<br>via our inquiry form</h2>
+
+    <div class="cgrid">
+      <div>
+        <div class="dblock">
+          <div class="k">You may call or text us at</div>
+          <a class="v" href="tel:+14256261277">425-626-1277</a>
+        </div>
+        <div class="dblock">
+          <div class="k">Email us:</div>
+          <a class="v" href="mailto:service@agahandyman.com" style="font-size:clamp(18px,2vw,22px)">service@agahandyman.com</a>
+        </div>
+      </div>
+
+      <form onsubmit="event.preventDefault();this.querySelector('.sent').style.display='block';">
+        <div class="g2">
+          <div class="f"><label for="a">Name*</label><input id="a" required></div>
+          <div class="f"><label for="b">Contact Number:*</label><input id="b" type="tel" required></div>
+        </div>
+        <div class="g2">
+          <div class="f"><label for="c">Email Address*</label><input id="c" type="email" required></div>
+          <div class="f"><label for="d">Location / Address:*</label><input id="d" required></div>
+        </div>
+        <div class="f" style="margin-bottom:0"><label for="e">Requested service(s):*</label><textarea id="e" required></textarea></div>
+        <button class="btn btn-solid btn-lg" style="width:100%;margin-top:28px" type="submit">Send Message</button>
+        <p class="sent">Demo form — on the live site this delivers to service@agahandyman.com.</p>
+        <p class="privacy">Your information collected is for internal use only and will not be shared with any outside parties.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="thanks">Thank you for visiting AGA Handyman Services.</span>
+    <span class="r">
+      <a href="tel:+14256261277">425-626-1277</a>
+      <a href="mailto:service@agahandyman.com">service@agahandyman.com</a>
+      <span>AGAHAHS837PT</span>
+    </span>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="a" href="tel:+14256261277">425-626-1277</a>
+  <a class="b" href="mailto:service@agahandyman.com">Email us</a>
+</div>
+
+<script>document.getElementById('yr')&&(document.getElementById('yr').textContent=new Date().getFullYear());</script>
+</body>
+</html>
